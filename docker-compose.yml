@@ -4,10 +4,10 @@ services:
         build: .
         command: python -u app.py
         ports:
-        - "5000:5000"
+            - "5000:5000"
         volumes:
-        - .:/index
+            - .:/index
         links:
-        - db
+            - db
     db:
         image: mongo:3.0.2
