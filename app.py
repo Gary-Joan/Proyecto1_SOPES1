@@ -9,7 +9,10 @@ client = MongoClient(
     27017)
 db = client.tododb
 
+@app.route('/hello')
+def todo():
 
+    return 'Hola mundo!!'
 @app.route('/')
 def todo():
 
@@ -29,6 +32,7 @@ def new():
     db.tododb.insert_one(item_doc)
 
     return redirect(url_for('todo'))
+
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', debug=True)
