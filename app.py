@@ -1,5 +1,5 @@
 import os
-from flask import Flask, redirect, url_for, request, render_template
+from flask import Flask, redirect, url_for, request, render_template, jsonify
 from pymongo import MongoClient
 app = Flask(__name__)
 client = MongoClient(
@@ -8,7 +8,9 @@ client = MongoClient(
 db = client.tododb
 @app.route('/hello')
 def hello():
-    return 'Hola Mundo'
+    arry =[]
+    arry =os.popen('cat /proc/version').read()
+    return jsonify(arry)
 @app.route('/')
 def todo():
     _items = db.tododb.find()

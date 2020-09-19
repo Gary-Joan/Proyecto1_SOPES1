@@ -19,13 +19,27 @@ struct list_head *list;
 static int cpu_show(struct seq_file *m, void *v){
     seq_printf(m, "Carne: 200915609 \n");
     seq_printf(m, "Nombre: Gary Joan Ortiz Lopez \n");
-    seq_printf(m, "SO: Debian  \n");
-
     int numeroProceso = 0;
-    struct task_struct *task;
+    int total_time = 0;
+    int seconds = 0; 
+    int cpu_usage = 0;
+    int cpu_total;
     for_each_process(task){
+        total_time = task->utime + task->stime;
+        
+        seconds = task->utime - (task->start_time / hz);
+        cpu_usage = 100 * ((total_time/ hz)/seconds);
+        list_for_each(list, &task->children){                        
+ 
+            task_child = list_entry( list, struct task_struct, sibling );    
+     
+            total_time = total_time + task_child->utime +task_child->stime;
+        } 
         seq_printf(m, "------------%d----------\n", numeroProceso);
-        seq_printf(m, "PID: %d \n", task->pid);
+        seq_printf(m, "HZ : %d \n", hz);
+        seq_printf(m, "total time : %d \n", total_time);
+        seq_printf(m, "seconds : %d \n", seconds);
+        seq_printf(m, "CPU TIME : %d \n", cpu_usage);
         seq_printf(m, "Nombre: %s \n", task->comm);
         seq_printf(m, "Estado: ");
         switch(task->state){

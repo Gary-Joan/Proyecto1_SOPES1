@@ -30,28 +30,25 @@ int lru;
 static int memori_show(struct seq_file *m, void *v){
 
 int porcentaje = 0;
-seq_printf(m,"Nombre: Gary Joan Ortiz Lopez\n");
-seq_printf(m,"Carnet: 200915609\n");
-seq_printf(m, "SO: Debian\n");
-seq_printf(m, "Proceso:\n");
-seq_printf(m, "\n");
-
+seq_printf(m,"{");
+seq_printf(m,"\"Nombre\": \"Gary Joan Ortiz Lopez\",\n");
+seq_printf(m,"\"Carnet\": 200915609 ,\n");
 #define K(x) ((x) << (PAGE_SHIFT - 10))
 si_meminfo(&i); 
 
 porcentaje = (i.freeram*100)/i.totalram;
-seq_printf(m,"MemTotal: %8lu kB\n",K(i.totalram));
-seq_printf(m,"MemFree: %8lu kB\n",K(i.freeram));
-seq_printf(m,"Buffers: %8lu kB\n",K(i.bufferram));
-seq_printf(m, "Porcentaje Libre: %8lu\n",porcentaje);
+seq_printf(m,"\"MemTotal\": %8lu ,\n",K(i.totalram));
+seq_printf(m,"\"MemFree\": %8lu ,\n",K(i.freeram));
+seq_printf(m,"\"Buffers\": %8lu ,\n",K(i.bufferram));
+seq_printf(m, "\"Porcentaje Libre\": %8u\n",porcentaje);
 
 #ifdef CONFIG_HIGHMEM
-seq_printf(m,"HighTotal: %8lu kB\n",K(i.totalhigh));
-seq_printf(m,"HighFree: %8lu kB\n",K(i.freehigh));
-seq_printf(m,"LowTotal: %8lu kB\n",K(i.totalram-i.totalhigh));
-seq_printf(m,"LowFree: %8lu kB\n",K(i.freeram-i.freehigh));
+seq_printf(m,"\"HighTotal\": %8lu ,\n",K(i.totalhigh));
+seq_printf(m,"\"HighFree\": %8lu ,\n",K(i.freehigh));
+seq_printf(m,"\"LowTotal\": %8lu ,\n",K(i.totalram-i.totalhigh));
+seq_printf(m,"\"LowFree\": %8lu \n",K(i.freeram-i.freehigh));
 #endif
-
+seq_printf(m,"}\n");
 
 #undef K
 return 0;
