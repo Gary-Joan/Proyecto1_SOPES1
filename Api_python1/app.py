@@ -1,7 +1,7 @@
 import os
 from flask import Flask, redirect, url_for, request, render_template, jsonify
-
-@app.route('/hello')
+app = Flask(__name__)
+@app.route('/')
 def hello():
     return "hola Mundo"
 if __name__ == "__main__":
