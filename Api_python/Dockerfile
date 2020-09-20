@@ -4,6 +4,7 @@ WORKDIR /Api_python
 ENV FLASK_APP app.py
 ENV FLASK_RUN_HOST 0.0.0.0
 RUN apk add --no-cache gcc musl-dev linux-headers
+EXPOSE 8080
 COPY requirements.txt requirements.txt
 RUN pip install -r requirements.txt
 COPY . .
