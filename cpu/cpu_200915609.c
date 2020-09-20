@@ -7,7 +7,8 @@
 #include <asm/uaccess.h>
 #include <linux/sched/signal.h>
 #include <linux/sched.h>
- 
+#include <linux/ktime.h>
+s64  uptime;
 static int hz=100;
 #define PROCFS_NAME "cpu_200915609"
 
@@ -17,15 +18,15 @@ struct task_struct *task_child;
 struct list_head *list;  
 
 static int cpu_show(struct seq_file *m, void *v){
-    int numeroProceso = 0;
     int total_time = 0;
-    int seconds = 0; 
-    int cpu_usage = 0;
-    int cpu_total;
-    seq_printf(m, "{ \"CPU\": {");
+    int start_time=0;
+    int seconds = 0;
+    seq_printf(m, "{ \"CPU\": ");
     for_each_process(task){
-        total_time = total_time + task->utime + task->stime;       
-        seconds = seconds +( task->utime - (task->start_time / hz));
+        uptime = ktime_divns(ktime_get_coarse_boottime(), NSEC_PER_SEC);
+        total_time = total_time + task->utime + task->stime;
+        start_time = start_time + task->start_time;       
+        seconds = seconds + (uptime - (start_time / hz));
         list_for_each(list, &task->children){                        
  
             task_child = list_entry( list, struct task_struct, sibling );    
@@ -35,9 +36,11 @@ static int cpu_show(struct seq_file *m, void *v){
         
     }
     seq_printf(m, "{\n");
+    seq_printf(m, "\"Start_time\" : %u ,\n", start_time);
     seq_printf(m, "\"HZ\" : %d ,\n", hz);
-    seq_printf(m, "\"total time\" : %d ,\n", total_time);
-    seq_printf(m, "\"seconds \": %d \n", seconds);
+    seq_printf(m, "\"total time\" : %u ,\n", total_time);
+    seq_printf(m, "\"uptime \": %llu, \n", uptime);
+    seq_printf(m, "\"seconds \": %llu \n", seconds);
     seq_printf(m, "}\n");
     seq_printf(m, " }");
     return 0;
