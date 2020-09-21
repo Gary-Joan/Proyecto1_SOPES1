@@ -1,0 +1,3 @@
+Ejemplo de lectura de archivo.
+Hola como estan. Buenos dias.
+Saludos a todos.
