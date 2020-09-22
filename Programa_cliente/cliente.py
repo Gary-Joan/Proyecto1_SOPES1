@@ -20,7 +20,12 @@ def main():
                 "nota" : item
             }
             publicacion=json.dumps(json_publicacion)
-            rq = requests.post(ruta_balanceador,data=publicacion)
+            try:
+                rq = requests.post(ruta_balanceador,data=publicacion)
+                print(rq)
+            except requests.exceptions.RequestException as e:  # This is the correct syntax
+                raise SystemExit(e)
+        
             print(publicacion) 
         archivo.close()
         
