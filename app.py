@@ -1,6 +1,9 @@
 import os
 from flask import Flask, redirect, url_for, request, render_template, jsonify
 from pymongo import MongoClient
+from json import loads, dump
+from bson import json_util
+
 app = Flask(__name__)
 client = MongoClient(
     os.environ['DB_PORT_27017_TCP_ADDR'],
@@ -9,11 +12,11 @@ db = client["dbproyecto1"]
 mycol= db["publicaciones"]
 
 @app.route('/')
-def todo():
+def home():
    return "<h2>API SERVIDOR A</h2>"
 
 @app.route('/memoria')
-def hello():
+def memoria():
     arry =os.popen('cat /proc/memoria_200915609').read()
     memoria = loads(arry)
     return memoria
@@ -24,26 +27,24 @@ def cpu():
     return cpu  
    
 
+
 @app.route('/items')
-def todo():
-    collist = mycol.list_collection_names()
-    _items = {}
-    if "publicaciones" in collist:
-        _items = mycol.find()
-        listapublicaciones = loads(_items)
-        return listapublicaciones
-
-    else:
-        return "Error columna de datos no existe!!"
-
-
-@app.route('/new')
+def items():
+   
+    _items = mycol.find()
+    items = [item for item in _items]
+    lista = dumps(items, default=str)
+    return lista
+   
+@app.route('/new', methods=['POST'])
 def new():
+    data = request.get_json()
+    #print(data['autor'],flush=True)
     item_doc = {
-        'name': request.form['name'],
-        'description': request.form['description']
-    }
-    print(request.form)
-    
+        "autor": data['autor'],
+        "nota": data['nota']
+    } 
+    x = mycol.insert_one(item_doc)
+    return str(x.inserted_id)
 if __name__ == "__main__":
     app.run(host='0.0.0.0',port=80, debug=True)
