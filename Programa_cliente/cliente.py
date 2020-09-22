@@ -8,25 +8,27 @@ def main():
     while opcion != "n":
         #inicio del programa que pide la ruta del archivo y la direccion del balanceador de google cloud
         print("PROGRAMA CLIENTE")
+        autor = input("Nombre del autor del archivo: ")
         ruta_archivo = input("Ingrese ruta del archivo: ")
         ruta_balanceador = input(f"Ingrese direccion del balanceador: ")
-        archivo = open("hello.txt", 'r')
+        archivo = open(ruta_archivo, 'r')
         contenido = archivo.read()
         #iteramos la lista de oraciones para enviarlos al balanceador
         lista_contenido= sent_tokenize(contenido)
         for item in lista_contenido:
             json_publicacion ={
-                "autor": "Gary",
+                "autor": autor,
                 "nota" : item
             }
             publicacion=json.dumps(json_publicacion)
+            newHeaders = {'Content-type': 'application/json', 'Accept': 'text/plain'}
             try:
-                rq = requests.post(ruta_balanceador,data=publicacion)
-                print(rq)
-            except requests.exceptions.RequestException as e:  # This is the correct syntax
+                rq = requests.post(ruta_balanceador,data=publicacion,headers=newHeaders)
+                #print(rq.status_code)
+            except requests.exceptions.RequestException as e: 
                 raise SystemExit(e)
         
-            print(publicacion) 
+            print("Nota Ingresada: " +publicacion) 
         archivo.close()
         
         opcion = input("Desea enviar otro archivo? (y/n): ")
