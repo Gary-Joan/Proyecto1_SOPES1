@@ -59,7 +59,7 @@ def loadB():
         print("Insertar en A POR COUNT")
         
         try:
-            rq = requests.post(Servidor1_url+'/new',data=data,headers=newHeaders)
+            rq = requests.post(Servidor1_url+'/new',data=dumps(data),headers=newHeaders)
                 #print(rq.status_code)
         except requests.exceptions.RequestException as e: 
                 raise SystemExit(e)

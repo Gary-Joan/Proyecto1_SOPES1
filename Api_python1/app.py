@@ -59,15 +59,15 @@ def loadB():
         print("Insertar en A POR COUNT")
         
         try:
-            rq = requests.post(Servidor1_url+'/new',data=data,headers=newHeaders)
-                #print(rq.status_code)
+            rq = requests.post(Servidor1_url+'/new',data=dumps(data),headers=newHeaders)
+            print(rq.status_code)
         except requests.exceptions.RequestException as e: 
                 raise SystemExit(e)
     elif (countS1 < countS2):
         print("Insertar en B POR COUNT")
         try:
             rq = requests.post(Servidor2_url+'/new',data=dumps(data),headers=newHeaders)
-                #print(rq.status_code)
+            print(rq.status_code, flush=True)
         except requests.exceptions.RequestException as e: 
                 raise SystemExit(e)
     elif (countS1== countS2):
