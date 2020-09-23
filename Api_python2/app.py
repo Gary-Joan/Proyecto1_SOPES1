@@ -9,7 +9,7 @@ Servidor2_url='http://35.193.40.68'
 newHeaders = {'Content-type': 'application/json', 'Accept': 'text/plain'}
 @app.route('/')
 def hello():
-    return "<h2>SERVIDOR 1</h2>"
+    return "<h2>SERVIDOR 2</h2>"
 
 @app.route('/balanceador',methods=['POST'])
 def loadB():
