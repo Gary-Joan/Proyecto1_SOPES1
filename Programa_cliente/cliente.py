@@ -10,8 +10,8 @@ def main():
         print("PROGRAMA CLIENTE")
         autor = input("Nombre del autor del archivo: ")
         ruta_archivo = input("Ingrese ruta del archivo: ")
-        ruta_balanceador = input(f"Ingrese direccion del balanceador: ")
-        archivo = open(ruta_archivo, 'r')
+        ruta_balanceador = input(f"Ingrese IP del balanceador con (https): ")
+        archivo = open("hello.txt", 'r')
         contenido = archivo.read()
         #iteramos la lista de oraciones para enviarlos al balanceador
         lista_contenido= sent_tokenize(contenido)
@@ -23,8 +23,8 @@ def main():
             publicacion=json.dumps(json_publicacion)
             newHeaders = {'Content-type': 'application/json', 'Accept': 'text/plain'}
             try:
-                rq = requests.post(ruta_balanceador,data=publicacion,headers=newHeaders)
-                #print(rq.status_code)
+                rq = requests.post(ruta_balanceador+'/balanceador',data=publicacion,headers=newHeaders)
+                print(rq.status_code)
             except requests.exceptions.RequestException as e: 
                 raise SystemExit(e)
         

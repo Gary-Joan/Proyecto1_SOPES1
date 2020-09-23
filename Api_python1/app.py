@@ -4,8 +4,8 @@ import requests
 from json import loads,  dumps
 app = Flask(__name__)
 #Rutas de los dos servidores
-Servidor1_url='http://34.71.254.186'
-Servidor2_url='http://35.193.40.68'
+Servidor1_url='http://10.128.0.2'
+Servidor2_url='http://10.128.0.15'
 newHeaders = {'Content-type': 'application/json', 'Accept': 'text/plain'}
 @app.route('/')
 def hello():
