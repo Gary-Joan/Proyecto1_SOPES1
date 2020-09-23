@@ -56,17 +56,17 @@ def loadB():
     #print(countS2   , flush=True)
    
     if(countS1 > countS2):
-        print("Insertar en A POR COUNT")
+        print("Insertar en B POR COUNT")
         
         try:
-            rq = requests.post(Servidor1_url+'/new',data=dumps(data),headers=newHeaders)
+            rq = requests.post(Servidor2_url+'/new',data=dumps(data),headers=newHeaders)
             print(rq.status_code)
         except requests.exceptions.RequestException as e: 
                 raise SystemExit(e)
     elif (countS1 < countS2):
-        print("Insertar en B POR COUNT")
+        print("Insertar en A POR COUNT")
         try:
-            rq = requests.post(Servidor2_url+'/new',data=dumps(data),headers=newHeaders)
+            rq = requests.post(Servidor1_url+'/new',data=dumps(data),headers=newHeaders)
             print(rq.status_code, flush=True)
         except requests.exceptions.RequestException as e: 
                 raise SystemExit(e)
@@ -74,16 +74,16 @@ def loadB():
 #SI EL NUMERO ES IGUAL SE TOMA LA RAM
         if(porcentaje_utilizacion_servidor1>porcentaje_utilizacion_servidor2):
          
-            print("Insertar en A por RAM")
+            print("Insertar en B por RAM")
             try:
-                rq = requests.post(Servidor1_url+'/new',data=dumps(data),headers=newHeaders)
+                rq = requests.post(Servidor2_url+'/new',data=dumps(data),headers=newHeaders)
                 #print(rq.status_code)
             except requests.exceptions.RequestException as e: 
                 raise SystemExit(e)
         elif (porcentaje_utilizacion_servidor1<porcentaje_utilizacion_servidor2):
-            print("Insertar en B por RAM")
+            print("Insertar en A por RAM")
             try:
-                rq = requests.post(Servidor2_url+'/new',data=dumps(data),headers=newHeaders)
+                rq = requests.post(Servidor1_url+'/new',data=dumps(data),headers=newHeaders)
                 #print(rq.status_code)
             except requests.exceptions.RequestException as e: 
                 raise SystemExit(e)
@@ -91,16 +91,16 @@ def loadB():
 # SI LA RAM ES IGUAL SE TOMA EL CPU
             if(cpu_usage_servidor1>cpu_usage_servidor2):
          
-                print("Insertar en A por CPU")
+                print("Insertar en B por CPU")
                 try:
-                    rq = requests.post(Servidor1_url+'/new',data=dumps(data),headers=newHeaders)
+                    rq = requests.post(Servidor2_url+'/new',data=dumps(data),headers=newHeaders)
                     print(rq.status_code)
                 except requests.exceptions.RequestException as e: 
                     raise SystemExit(e)
             elif (cpu_usage_servidor1<cpu_usage_servidor2):
-                print("Insertar en B por CPU")
+                print("Insertar en A por CPU")
                 try:
-                    rq = requests.post(Servidor2_url+'/new',data=dumps(data),headers=newHeaders)
+                    rq = requests.post(Servidor1_url+'/new',data=dumps(data),headers=newHeaders)
                     #print(rq.status_code)
                 except requests.exceptions.RequestException as e: 
                     raise SystemExit(e)
