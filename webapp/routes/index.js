@@ -15,7 +15,7 @@ router.get('/publiA', async function(req, res){
   .catch(function (error) {
     console.log(error);
   });
-  console.log(res1.data);
+
   var nombre_servidor = "Publicaciones Servidor A";
   res.render('publicaciones', {publicaciones: res1.data, nombre:nombre_servidor});
 
@@ -27,7 +27,7 @@ router.get('/publiB', async function(req, res){
   .catch(function (error) {
     console.log(error);
   });
-  console.log(res1.data);
+ 
   var nombre_servidor = "Publicaciones Servidor B";
   res.render('publicaciones', {publicaciones: res1.data, nombre:nombre_servidor});
 
