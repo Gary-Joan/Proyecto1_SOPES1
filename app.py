@@ -1,7 +1,7 @@
 import os
 from flask import Flask, redirect, url_for, request, render_template, jsonify
 from pymongo import MongoClient
-from json import loads, dump
+from json import loads, dumps
 from bson import json_util
 
 app = Flask(__name__)
@@ -50,6 +50,6 @@ def new():
 def contador():
     _items = mycol.find()
     items_count={"cantidad ": _items.count()}
-    return dumps(items_count)
+    return loads(dumps(items_count))
 if __name__ == "__main__":
     app.run(host='0.0.0.0',port=80, debug=True)
