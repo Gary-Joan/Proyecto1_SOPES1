@@ -33,7 +33,7 @@ def items():
    
     _items = mycol.find()
     items = [item for item in _items]
-    lista = dumps(items, default=str)
+    lista = dumps(items,default=json_util.default)
     return lista
    
 @app.route('/new', methods=['POST'])

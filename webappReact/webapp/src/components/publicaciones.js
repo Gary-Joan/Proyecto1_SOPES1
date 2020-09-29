@@ -6,16 +6,9 @@ function Publicaciones() {
     fetchpubli();
   },[]);
   const fetchpubli = async () =>{
-    const data = await fetch('http://35.193.63.206/items',{
-    method:'GET',
-    headers:{
-        'Accept':'application/json',
-        'Content-Type':'application/json',
-    },
-    mode:'no-cors'
-});
-    const items= await data.json();
-    console.log(items);
+    const data = await fetch('http://35.193.63.206/items');
+    const items= await data.text();
+    console.log(items+2);
   }
   return (
     <div >
