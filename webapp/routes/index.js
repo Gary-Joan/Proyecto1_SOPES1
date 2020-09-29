@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 const axios = require("axios");
 /* GET home page. */
-const servidorA ="http://146.148.51.151"
+const servidorA ="http://35.193.63.206"
 const servidorB ="http://34.121.214.76"
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
