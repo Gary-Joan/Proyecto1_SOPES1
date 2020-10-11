@@ -10,7 +10,7 @@ def main():
         print("PROGRAMA CLIENTE")
         autor = input("Nombre del autor del archivo: ")
         ruta_archivo = input("Ingrese ruta del archivo: ")
-        ruta_balanceador = input(f"Ingrese IP del balanceador con (https): ")
+        ruta_balanceador = input("Ingrese IP del balanceador con (https): ")
         archivo = open("hello.txt", 'r')
         contenido = archivo.read()
         #iteramos la lista de oraciones para enviarlos al balanceador
